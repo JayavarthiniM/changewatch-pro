@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: changewatch-pro
+    runtime: docker
+    plan: starter
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TZ
+        value: Asia/Kolkata
+      - key: CW_AUTH_USER
+        sync: false
+      - key: CW_AUTH_PASSWORD
+        sync: false
+      - key: MAX_CONCURRENT_JOBS
+        value: "2"

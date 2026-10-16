@@ -1,0 +1,5 @@
+const $=s=>document.querySelector(s);const status=t=>$('#status').textContent=t;
+$('#pick').addEventListener('click',async()=>{try{const [tab]=await chrome.tabs.query({active:true,currentWindow:true});if(!tab?.id||!/^https?:/.test(tab.url||''))throw Error('Open a normal public HTTP/HTTPS page first.');await chrome.scripting.executeScript({target:{tabId:tab.id},files:['picker.js']});status('Picker enabled. Click the region on the webpage.');window.close();}catch(e){status(e.message)}});
+chrome.storage.local.get(['lastSelector'],r=>{if(r.lastSelector)$('#selector').value=r.lastSelector;});
+chrome.storage.onChanged.addListener((changes,area)=>{if(area==='local'&&changes.lastSelector){$('#selector').value=changes.lastSelector.newValue||'';status('Selector received.')}});
+$('#copy').addEventListener('click',async()=>{const v=$('#selector').value.trim();if(!v)return status('Select a region first.');try{await navigator.clipboard.writeText(v);status('Selector copied. Paste it into ChangeWatch Pro.')}catch{status('Select the text and copy it manually.')}});

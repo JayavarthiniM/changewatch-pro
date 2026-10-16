@@ -1,0 +1,12 @@
+node_modules/
+data/store.json
+snapshots/*
+!snapshots/.gitkeep
+.env
+playwright-report/
+test-results/
+data/*.sqlite
+data/*.sqlite-shm
+data/*.sqlite-wal
+
+data/store.json.bak
